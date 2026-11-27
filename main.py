@@ -344,6 +344,7 @@ def analyse_match(match):
         return "NO SAFE PREDICTION: Insufficient recent results."
 
 
+
     home_scored, home_conceded = team_goal_averages(
         home_games, home_id
     )
