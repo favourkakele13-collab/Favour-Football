@@ -247,6 +247,43 @@ def team_goal_averages(matches, team_id):
 
 
 # =====================================
+# TEAM FORM ANALYSIS
+# =====================================
+
+def team_form_summary(matches, team_id):
+    form = []
+    wins = 0
+    draws = 0
+    losses = 0
+
+    for match in matches[:5]:
+        home_id = get_team_id(match, "home_team")
+
+        if home_id == team_id:
+            scored = match["home_score"]
+            conceded = match["away_score"]
+        else:
+            scored = match["away_score"]
+            conceded = match["home_score"]
+
+        if scored > conceded:
+            form.append("W")
+            wins += 1
+        elif scored == conceded:
+            form.append("D")
+            draws += 1
+        else:
+            form.append("L")
+            losses += 1
+
+    return {
+        "form": " - ".join(form) if form else "Unavailable",
+        "wins": wins,
+        "draws": draws,
+        "losses": losses
+    }
+
+# =====================================
 # POISSON GOAL MODEL
 # =====================================
 
