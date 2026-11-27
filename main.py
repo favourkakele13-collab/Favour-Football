@@ -475,12 +475,31 @@ def analyse_match(match):
         "📌 PREDICTION FILTER"
     ])
 
+       other_markets = {
+        name: probability
+        for name, probability in markets.items()
+        if name not in outcomes
+    }
+
+    top_market, top_probability = max(
+        other_markets.items(),
+        key=lambda item: item[1]
+    )
+
     if best_probability >= 0.60 and margin >= 0.12:
         lines.append(
             f"Statistical lean: {best_name}"
         )
     else:
-        lines.append("🚫 NO SAFE PREDICTION")
+        lines.append("🚫 NO CLEAR MATCH RESULT")
+
+    if top_probability >= 0.75:
+        lines.append(
+            f"Strongest model market: {top_market} "
+            f"({top_probability:.1%})"
+        )
+    else:
+        lines.append("No market meets the 75% model threshold.")
 
     lines.extend([
         "",
