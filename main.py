@@ -329,15 +329,15 @@ def analyse_match(match):
     if not home_id or not away_id:
         return "NO SAFE PREDICTION: Missing team information."
 
-    home_games = [
-    game for game in get_recent_results(home_id)
-    if get_team_id(game, "home_team") == home_id
-]
+        home_games = [
+        game for game in get_recent_results(home_id)
+        if get_team_id(game, "home_team") == home_id
+    ]
 
-away_games = [
-    game for game in get_recent_results(away_id)
-    if get_team_id(game, "away_team") == away_id
-]
+    away_games = [
+        game for game in get_recent_results(away_id)
+        if get_team_id(game, "away_team") == away_id
+    ]
 
     if len(home_games) < 3 or len(away_games) < 3:
         return "NO SAFE PREDICTION: Insufficient recent results."
