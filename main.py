@@ -467,7 +467,7 @@ def analyse_match(match):
             f"Under {line}: {markets[f'Under {line}']:.1%}"
         )
 
-    lines.extend([
+        lines.extend([
         "",
         "🥅 BOTH TEAMS TO SCORE",
         f"BTTS Yes: {markets['BTTS Yes']:.1%}",
@@ -476,7 +476,7 @@ def analyse_match(match):
         "📌 PREDICTION FILTER"
     ])
 
-           other_markets = {
+    other_markets = {
         name: probability
         for name, probability in markets.items()
         if name not in outcomes
