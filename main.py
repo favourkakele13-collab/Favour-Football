@@ -437,7 +437,8 @@ def analyse_match(match):
         "🏟️ " + venue_name(match),
         f"🏆 Competition: {match.get('league', 'Unknown').upper()}",
         "",
-                "📊 MATCH OUTCOME",
+         "📊 MATCH OUTCOME",
+
         f"🏠 Home Recent Form: {home_form['form']}",
         f"✈️ Away Recent Form: {away_form['form']}",
         "",
@@ -475,7 +476,7 @@ def analyse_match(match):
         "📌 PREDICTION FILTER"
     ])
 
-       other_markets = {
+           other_markets = {
         name: probability
         for name, probability in markets.items()
         if name not in outcomes
