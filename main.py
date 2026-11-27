@@ -220,7 +220,7 @@ def get_recent_results(team_id):
         reverse=True
     )
 
-    return finished[:5]
+    return finished[:10]
 
 
 def team_goal_averages(matches, team_id):
