@@ -477,31 +477,48 @@ def analyse_match(match):
         "📌 PREDICTION FILTER"
     ])
 
-    other_markets = {
-        name: probability
-        for name, probability in markets.items()
-        if name not in outcomes
+    
+    # =====================================
+    # STAGE 5: BETTER MARKET SELECTION
+    # =====================================
+
+    market_groups = {
+        "DOUBLE CHANCE": {
+            "1X": markets["1X"],
+            "X2": markets["X2"],
+            "12": markets["12"]
+        },
+        "GOALS": {
+            "Over 1.5": markets["Over 1.5"],
+            "Over 2.5": markets["Over 2.5"],
+            "Under 2.5": markets["Under 2.5"],
+            "Under 3.5": markets["Under 3.5"]
+        },
+        "BTTS": {
+            "BTTS Yes": markets["BTTS Yes"],
+            "BTTS No": markets["BTTS No"]
+        }
     }
 
-    top_market, top_probability = max(
-        other_markets.items(),
-        key=lambda item: item[1]
-    )
+    lines.append("📌 STAGE 5 MARKET SELECTION")
 
-    if best_probability >= 0.60 and margin >= 0.12:
-        lines.append(
-            f"Statistical lean: {best_name}"
+    for group_name, group_markets in market_groups.items():
+        top_name, top_probability = max(
+            group_markets.items(),
+            key=lambda item: item[1]
         )
-    else:
-        lines.append("🚫 NO CLEAR MATCH RESULT")
 
-    if top_probability >= 0.75:
-        lines.append(
-            f"Strongest model market: {top_market} "
-            f"({top_probability:.1%})"
-        )
-    else:
-        lines.append("No market meets the 75% model threshold.")
+        if top_probability >= 0.75:
+            lines.append(
+                f"{group_name}: {top_name} "
+                f"({top_probability:.1%})"
+            )
+        else:
+            lines.append(
+                f"{group_name}: NO SAFE MARKET "
+                f"(Best: {top_name} {top_probability:.1%})"
+            )
+
 
     lines.extend([
         "",
