@@ -459,13 +459,56 @@ def analyse_match(match):
         "⚽ OVER / UNDER GOALS"
     ]
 
-    for line in [0.5, 1.5, 2.5, 3.5, 4.5]:
+        for line in [0.5, 1.5, 2.5, 3.5, 4.5]:
         lines.append(
             f"Over {line}: {markets[f'Over {line}']:.1%}"
         )
         lines.append(
             f"Under {line}: {markets[f'Under {line}']:.1%}"
         )
+
+    lines.extend([
+        "",
+        "🥅 BOTH TEAMS TO SCORE",
+        f"BTTS Yes: {markets['BTTS Yes']:.1%}",
+        f"BTTS No: {markets['BTTS No']:.1%}",
+        "",
+        "📌 PREDICTION FILTER"
+    ])
+
+    other_markets = {
+        name: probability
+        for name, probability in markets.items()
+        if name not in outcomes
+    }
+
+    top_market, top_probability = max(
+        other_markets.items(),
+        key=lambda item: item[1]
+    )
+
+    if best_probability >= 0.60 and margin >= 0.12:
+        lines.append(
+            f"Statistical lean: {best_name}"
+        )
+    else:
+        lines.append("🚫 NO CLEAR MATCH RESULT")
+
+    if top_probability >= 0.75:
+        lines.append(
+            f"Strongest model market: {top_market} "
+            f"({top_probability:.1%})"
+        )
+    else:
+        lines.append("No market meets the 75% model threshold.")
+
+    lines.extend([
+        "",
+        "Model: Recent-results Poisson estimate.",
+        "Not a guarantee or a verified betting edge."
+    ])
+
+    return "\n".join(lines)
 
         lines.extend([
         "",
