@@ -319,6 +319,7 @@ def calculate_markets(home_mean, away_mean):
 # MATCH ANALYSIS
 # =====================================
 
+
 def analyse_match(match):
     home = match.get("home_team") or {}
     away = match.get("away_team") or {}
@@ -329,7 +330,7 @@ def analyse_match(match):
     if not home_id or not away_id:
         return "NO SAFE PREDICTION: Missing team information."
 
-        home_games = [
+    home_games = [
         game for game in get_recent_results(home_id)
         if get_team_id(game, "home_team") == home_id
     ]
@@ -341,6 +342,7 @@ def analyse_match(match):
 
     if len(home_games) < 3 or len(away_games) < 3:
         return "NO SAFE PREDICTION: Insufficient recent results."
+
 
     home_scored, home_conceded = team_goal_averages(
         home_games, home_id
