@@ -457,7 +457,9 @@ h2h_matches = get_head_to_head(home_id, away_id)
     margin = best_probability - ranked[1][1]
 
     lines = [
-        "⚽ FAVOUR GOAL PREDICTOR",
+   
+    f"🤝 HEAD-TO-HEAD: {len(h2h_matches)} previous meetings",
+    "⚽ FAVOUR GOAL PREDICTOR",     
         "",
         f"{team_name(home)} vs {team_name(away)}",
         "",
