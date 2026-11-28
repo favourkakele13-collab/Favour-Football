@@ -222,7 +222,35 @@ def get_recent_results(team_id):
 
     return finished[:10]
 
+def get_head_to_head(home_id, away_id):
+    matches = api_get({"team": home_id})
 
+    meetings = []
+
+    for match in matches:
+        home_team_id = get_team_id(match, "home_team")
+        away_team_id = get_team_id(match, "away_team")
+
+        if {home_team_id, away_team_id} != {home_id, away_id}:
+            continue
+
+        if match.get("status") != "final":
+            continue
+
+        if match.get("home_score") is None:
+            continue
+
+        if match.get("away_score") is None:
+            continue
+
+        meetings.append(match)
+
+    meetings.sort(
+        key=lambda x: x.get("start_time", ""),
+        reverse=True
+    )
+
+    return meetings[:5]
 def team_goal_averages(matches, team_id):
     scored = []
     conceded = []
