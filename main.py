@@ -414,7 +414,7 @@ def analyse_match(match):
     home_form = team_form_summary(home_games, home_id)
     away_form = team_form_summary(away_games, away_id)
 
-
+h2h_matches = get_head_to_head(home_id, away_id)
 
 
     home_scored, home_conceded = team_goal_averages(
