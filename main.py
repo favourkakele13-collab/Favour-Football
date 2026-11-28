@@ -459,7 +459,11 @@ h2h_matches = get_head_to_head(home_id, away_id)
     lines = [
    
     f"🤝 HEAD-TO-HEAD: {len(h2h_matches)} previous meetings",
-    "⚽ FAVOUR GOAL PREDICTOR",     
+   *[
+    f"{m['home_team']['name']} {m['home_score']}-{m['away_score']} {m['away_team']['name']}"
+    for m in h2h_matches
+], 
+"⚽ FAVOUR GOAL PREDICTOR",     
         "",
         f"{team_name(home)} vs {team_name(away)}",
         "",
